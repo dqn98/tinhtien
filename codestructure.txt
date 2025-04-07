@@ -1,0 +1,32 @@
+d:\personalproject\tinhtien\
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── EventList/
+│   │   │   ├── EventDetail/
+│   │   │   ├── EventForm/
+│   │   │   ├── MemberList/
+│   │   │   ├── FeeForm/
+│   │   │   ├── Modal/
+│   │   │   └── Navigation/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── index.css
+│   ├── public/
+│   └── package.json
+├── server/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── models/
+│   │   ├── services/
+│   │   ├── config/
+│   │   ├── utils/
+│   │   └── app.js
+│   └── package.json
+├── docs/
+├── README.md
+├── .gitignore
+└── package.json

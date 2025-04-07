@@ -1,0 +1,209 @@
+.event-detail-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.event-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.event-detail-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.event-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-btn, .add-fee-btn, .calculate-btn, .add-member-btn {
+  background-color: #5F8B4C;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.edit-btn {
+  background-color: #4A6D3B;
+}
+
+.add-fee-btn {
+  background-color: #5F8B4C;
+}
+
+.event-info-card {
+  background-color: #FFDDAB;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-description h3, .event-dates h3, .event-members h3, .event-fees h3, .event-summary h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.event-description p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.event-dates {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.date-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+
+.date-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.date-value {
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.event-members, .event-fees, .event-summary {
+  margin-bottom: 24px;
+}
+
+.member-list, .fee-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.member-item {
+  background-color: #5F8B4C;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.fee-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.fee-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.fee-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.fee-amount {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #5F8B4C;
+}
+
+.fee-members {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fee-members-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.fee-members-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fee-member-item {
+  background-color: #e0e0e0;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+}
+
+.summary-card {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.summary-value {
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: #5F8B4C;
+}
+
+.back-link {
+  margin-top: 32px;
+}
+
+.back-link a {
+  color: #5F8B4C;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.no-data {
+  color: #777;
+  font-style: italic;
+}
+
+.loading, .error-message, .not-found {
+  text-align: center;
+  padding: 40px 0;
+  color: #666;
+}
+
+.error-message {
+  color: #d32f2f;
+}

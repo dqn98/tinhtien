@@ -1,0 +1,149 @@
+.add-members-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.add-members-popup {
+  background-color: white;
+  border-radius: 12px;
+  padding: 28px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  animation: popup-fade 0.3s ease;
+}
+
+@keyframes popup-fade {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.add-members-popup h3 {
+  margin-top: 0;
+  color: #5F8B4C;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.4rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.members-selection {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.member-selection-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.member-selection-item:hover {
+  background-color: #f5f5f5;
+}
+
+.member-selection-item.selected {
+  background-color: #e8f4e5;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.member-email {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 4px;
+}
+
+.member-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.member-selection-item.selected .member-checkbox {
+  border-color: #5F8B4C;
+  background-color: #5F8B4C;
+}
+
+.checkmark {
+  color: white;
+  font-weight: bold;
+}
+
+.no-members-message {
+  text-align: center;
+  padding: 20px 0;
+  color: #666;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cancel-btn {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.save-btn {
+  background-color: #5F8B4C;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.save-btn:disabled {
+  background-color: #a5c099;
+  cursor: not-allowed;
+}
+
+.loading, .error-message {
+  text-align: center;
+  padding: 20px 0;
+  color: #666;
+}
+
+.error-message {
+  color: #d32f2f;
+}
