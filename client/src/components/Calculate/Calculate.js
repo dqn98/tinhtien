@@ -29,22 +29,27 @@ function Calculate() {
         // Get event details
         const eventResponse = await apiService.getEvent(eventId);
         console.log('Event data:', eventResponse.data);
-        setEvent(eventResponse.data);
+        const eventData = eventResponse.data;
+        setEvent(eventData);
         
         // Get all members
         const membersResponse = await apiService.getMembers();
-        setMembers(membersResponse.data);
+        const membersData = membersResponse.data;
+        setMembers(membersData);
         
         // Get fees for this event
         const feesResponse = await apiService.getEventFees(eventId);
-        setFees(feesResponse.data);
+        const feesData = feesResponse.data;
+        setFees(feesData);
         
         setLoading(false);
         
         // If we have fees and event data, calculate expenses
-        if (eventResponse.data && feesResponse.data && feesResponse.data.length > 0) {
-          // Use a small timeout to ensure state is updated
-          setTimeout(() => calculateExpenses(), 0);
+        if (eventData && feesData && feesData.length > 0) {
+          // Wait for state to be updated and then calculate
+          setTimeout(() => {
+            calculateExpenses(eventData, membersData, feesData);
+          }, 100);
         }
       } catch (err) {
         console.error('Error fetching data:', err);
@@ -56,20 +61,24 @@ function Calculate() {
     fetchData();
   }, [eventId]);
   
-  // Calculate expenses
-  const calculateExpenses = async () => {
+  // Calculate expenses with optional parameters to use directly passed data
+  const calculateExpenses = async (eventData = null, membersData = null, feesData = null) => {
     try {
       setCalculationError(null);
       
+      // Use passed data or state data
+      const currentEvent = eventData || event;
+      const currentFees = feesData || fees;
+      
       // Check if event exists and has members
-      if (!event) {
+      if (!currentEvent) {
         console.error('Cannot calculate expenses: Event is null');
         setCalculationError('Event data not available. Please try again.');
         return;
       }
       
       // Check if there are members in the event
-      if (!event.memberIds || event.memberIds.length === 0) {
+      if (!currentEvent.memberIds || currentEvent.memberIds.length === 0) {
         setCalculationError('Please add members to this event first');
         return;
       }
@@ -88,7 +97,7 @@ function Calculate() {
       } else {
         // If server returns empty data, fall back to client-side calculation
         console.warn('Server returned empty calculation data, using client-side calculation');
-        const clientCalculation = calculateClientSide();
+        const clientCalculation = calculateClientSide(false, currentEvent, membersData, currentFees);
         setTransactions(clientCalculation);
       }
     } catch (err) {
@@ -117,13 +126,18 @@ function Calculate() {
   };
   
   // Client-side calculation as fallback
-  const calculateClientSide = (autoAssignPayers = false) => {
+  const calculateClientSide = (autoAssignPayers = false, eventData = null, membersData = null, feesData = null) => {
     console.log('Performing client-side calculation', autoAssignPayers ? 'with auto-assigned payers' : '');
+    
+    // Use passed data or state data
+    const currentEvent = eventData || event;
+    const currentMembers = membersData || members;
+    const currentFees = feesData || fees;
     
     // Create a map of member balances
     const balances = {};
-    if (event && event.memberIds) {
-      event.memberIds.forEach(memberId => {
+    if (currentEvent && currentEvent.memberIds) {
+      currentEvent.memberIds.forEach(memberId => {
         balances[memberId] = 0;
       });
     }
@@ -135,7 +149,7 @@ function Calculate() {
     }
     
     // Calculate what each person paid and what they owe
-    fees.forEach(fee => {
+    currentFees.forEach(fee => {
       if (!fee || typeof fee.price !== 'number' || fee.price === 0) {
         return; // Skip invalid or zero-price fees
       }
@@ -248,7 +262,11 @@ function Calculate() {
   
   // Retry calculation
   const handleRetryCalculation = () => {
-    calculateExpenses();
+    if (event) {
+      calculateExpenses();
+    } else {
+      setCalculationError('Event data is still loading. Please wait a moment and try again.');
+    }
   };
   
   // Render loading state
