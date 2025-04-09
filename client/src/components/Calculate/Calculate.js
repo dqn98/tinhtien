@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 import apiService from '../../services/api';
 import './Calculate.css';
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Calculate() {
   const { eventId } = useParams();
@@ -308,6 +313,66 @@ function Calculate() {
   // Check if we have any expenses to calculate
   const hasExpenses = fees.length > 0;
 
+  // Generate random colors for the chart
+  const generateRandomColors = (count) => {
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      const hue = (i * 137) % 360; // Use golden ratio to spread colors evenly
+      colors.push(`hsl(${hue}, 70%, 60%)`);
+    }
+    return colors;
+  };
+
+  // Prepare chart data
+  const prepareChartData = () => {
+    if (!fees || fees.length === 0) return null;
+    
+    const labels = fees.map(fee => fee.feeName);
+    const data = fees.map(fee => fee.price || 0);
+    const backgroundColor = generateRandomColors(fees.length);
+    
+    return {
+      labels,
+      datasets: [
+        {
+          data,
+          backgroundColor,
+          borderColor: backgroundColor.map(color => color.replace('60%', '50%')),
+          borderWidth: 1,
+        },
+      ],
+    };
+  };
+
+  // Chart options
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: {
+          boxWidth: 15,
+          padding: 15,
+          font: {
+            size: 12
+          }
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.raw || 0;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = Math.round((value / total) * 100);
+            return `${label}: $${value.toFixed(2)} (${percentage}%)`;
+          }
+        }
+      }
+    }
+  };
+
   return (
     <div className="calculate-container">
       <div className="calculate-header">
@@ -423,6 +488,25 @@ function Calculate() {
             )}
           </div>
         </>
+      )}
+      
+      {/* Add the expense distribution chart */}
+      {hasExpenses && !calculationError && (
+        <div className="expense-distribution">
+          <h3>Expense Distribution</h3>
+          <div className="chart-container">
+            <Pie data={prepareChartData()} options={chartOptions} />
+          </div>
+        </div>
+      )}
+      
+      {!hasExpenses && (
+        <div className="no-expenses-message">
+          <p>There are no expenses to calculate. Please add expenses to this event first.</p>
+          <Link to={`/events/${eventId}/fees/new`} className="add-expense-btn">
+            Add an Expense
+          </Link>
+        </div>
       )}
       
       <div className="calculate-actions">

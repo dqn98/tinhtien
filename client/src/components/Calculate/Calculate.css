@@ -301,3 +301,33 @@ th {
   white-space: pre-wrap;
   word-break: break-all;
 }
+
+/* Add these styles to your existing CSS file */
+
+.expense-distribution {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.expense-distribution h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.chart-container {
+  height: 300px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    height: 250px;
+  }
+}
